@@ -14,15 +14,31 @@ let up;
 
 
 //get total
-function gettotal()
-{
-    if(price.value != '') {
+function gettotal() {
+    if (price.value != '') {
         let result = (+price.value + +taxes.value + +ads.value) - +discount.value
         total.innerHTML = result;
-        total.style.background = '#040'
-    }else{
-        total.innerHTML = '';
-        total.style.background = 'rgb(250, 15, 15)';
+        // setTimeout 
+        /*
+            *
+            *  This function is to specify the time to execute a specific order.
+            *
+        */
+        setTimeout(() => {
+            total.style.background = '#F0ECCF';
+        }, 100);
+    } else {
+        // setTimeout 
+        /*
+            *
+            *  This function is to specify the time to execute a specific order.
+            *
+        */
+        setTimeout(() => {
+            total.innerHTML = '';
+            total.style.background = '#A7727D'
+        }, 500);
+
     }
 }
 
@@ -32,51 +48,51 @@ function gettotal()
 
 
 let datapro;
-if (localStorage.product != null){
+if (localStorage.product != null) {
     datapro = JSON.parse(localStorage.product)
-}else{
+} else {
     datapro = [];
 }
 
-submit.onclick = function(){
+submit.onclick = function () {
     let newpro = {
-        title:title.value.toLowerCase(),
-        price:price.value,
-        taxes:taxes.value,
-        ads:ads.value,
-        discount:discount.value,
-        total:total.innerHTML,
-        count:count.value,
-        category:category.value.toLowerCase(),
+        title: title.value.toLowerCase(),
+        price: price.value,
+        taxes: taxes.value,
+        ads: ads.value,
+        discount: discount.value,
+        total: total.innerHTML,
+        count: count.value,
+        category: category.value.toLowerCase(),
     }
-    if(title.value !='' && price.value != '' && category.value != '' && newpro.count <= 100 ){
-        if(mood == 'create'){
-            if(newpro.count > 1){
-                for(let i =0; i < newpro.count; i++){
+    if (title.value != '' && price.value != '' && category.value != '' && newpro.count <= 100) {
+        if (mood == 'create') {
+            if (newpro.count > 1) {
+                for (let i = 0; i < newpro.count; i++) {
                     datapro.push(newpro);
                 }
-            }else{
+            } else {
                 datapro.push(newpro);
             }
-        }else{
-            datapro[  up   ] = newpro;
+        } else {
+            datapro[up] = newpro;
             mood = 'create';
-            submit.innerHTML='create';
+            submit.innerHTML = 'create';
             count.style.display = 'block';
         }
         cleardata()
     }
-    
+
 
     //save localstorage
-    localStorage.setItem('product',  JSON.stringify(datapro)  )
+    localStorage.setItem('product', JSON.stringify(datapro))
     showdata()
 }
 
 
 //clear inputs
 
-function cleardata(){
+function cleardata() {
     title.value = '';
     price.value = '';
     taxes.value = '';
@@ -90,13 +106,13 @@ function cleardata(){
 
 
 //read
-function showdata(){
+function showdata() {
     let table = '';
     gettotal();
-    for(let i = 0; i < datapro.length; i++){
+    for (let i = 0; i < datapro.length; i++) {
         table += `
         <tr>
-        <td>${i+1}</td>
+        <td>${i + 1}</td>
         <td>${datapro[i].title}</td>
         <td>${datapro[i].price}</td>
         <td>${datapro[i].taxes}</td>
@@ -108,16 +124,16 @@ function showdata(){
         <td><button onclick="deletedata( ${i} )" id="delete">delete</button></td>
          </tr>
     `
-    
+
     }
     document.getElementById('tbody').innerHTML = table;
     let btndeleteall = document.getElementById('deleteall');
-    if(datapro.length > 0){
+    if (datapro.length > 0) {
         btndeleteall.innerHTML = `
         <button onclick="deleteAll()">Deleta All (${datapro.length})</button>
         `
-    }else{
-        btndeleteall.innerHTML ='';
+    } else {
+        btndeleteall.innerHTML = '';
     }
 }
 showdata();
@@ -125,20 +141,19 @@ showdata();
 
 //delete
 
-function deletedata(i)
-{
-    datapro.splice(i,1);
+function deletedata(i) {
+    datapro.splice(i, 1);
     localStorage.product = JSON.stringify(datapro);
     showdata();
 }
-function deleteAll(){
+function deleteAll() {
     localStorage.clear();
     datapro.splice(0);
     showdata();
 }
 
 //update
-function updatedata(i){
+function updatedata(i) {
     title.value = datapro[i].title;
     price.value = datapro[i].price;
     taxes.value = datapro[i].taxes;
@@ -151,8 +166,8 @@ function updatedata(i){
     mood = 'update';
     up = i;
     scroll({
-        top:0,
-        behavior:'smooth',
+        top: 0,
+        behavior: 'smooth',
     })
 }
 
@@ -160,27 +175,25 @@ function updatedata(i){
 // search
 let searchmood = 'title';
 
-function getsearchmood(id)
-{
+function getsearchmood(id) {
     let searchelement = document.getElementById('search');
-    if(id == 'searchTitle'){
+    if (id == 'searchTitle') {
         searchmood = 'title';
-    }else{
+    } else {
         searchmood = 'category';
     }
-    searchelement.placeholder = 'Search By '+ searchmood;
+    searchelement.placeholder = 'Search By ' + searchmood;
     searchelement.focus()
     searchelement.value = '';
     showdata();
 }
- 
 
-function searchdata(value)
-{    
-    let table='';
-    for(let i = 0; i < datapro.length; i++){
-        if(searchmood == 'title'){
-            if(datapro[i].title.includes(value.toLowerCase())){
+
+function searchdata(value) {
+    let table = '';
+    for (let i = 0; i < datapro.length; i++) {
+        if (searchmood == 'title') {
+            if (datapro[i].title.includes(value.toLowerCase())) {
                 table += `
                     <tr>
                     <td>${i}</td>
@@ -196,8 +209,8 @@ function searchdata(value)
                 </tr>
                 `;
             }
-    }else{
-            if(datapro[i].category.includes(value.toLowerCase())){
+        } else {
+            if (datapro[i].category.includes(value.toLowerCase())) {
                 table += `
                     <tr>
                     <td>${i}</td>

@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUDS</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 
+/*
+    *
+    * Thish Font By Google Font !!
+    *
+*/ 
+-->
+<!-- 
+/*
+    *
+    * Thish Link !!!
+    *
+*/ 
+-->
+<link 
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Corinthia&family=Lemonada:wght@300&family=Lobster&family=MonteCarlo&family=Roboto:wght@100&display=swap" 
+        rel="stylesheet"
+/>
 </head>
 <body>
     <div class="crud"></div>
@@ -14,22 +34,22 @@
             <p>PRODUCT MANAGEMENT SYSTEM</p>
         </div>
         <div class="inputs">
-            <input placeholder="title" type="text" id="title">
+            <input placeholder="title" class="trans" type="text" id="title">
             <div class="price">
-                <input onkeyup="gettotal()" type="number" id="price" placeholder="price">
-                <input onkeyup="gettotal()" type="number" id="taxes" placeholder="taxes">
-                <input onkeyup="gettotal()" type="number" id="ads" placeholder="ads">
-                <input onkeyup="gettotal()" type="number" id="discount" placeholder="discount">
+                <input onkeyup="gettotal()" class="trans_dif" type="number" id="price" placeholder="price">
+                <input onkeyup="gettotal()" class="trans_dif" type="number" id="taxes" placeholder="taxes">
+                <input onkeyup="gettotal()" class="trans_dif" type="number" id="ads" placeholder="ads">
+                <input onkeyup="gettotal()" class="trans_dif" type="number" id="discount" placeholder="discount">
                 <small id="total"></small>
             </div>
-            <input placeholder="count" type="number" id="count">
-            <input placeholder="category" type="text" id="category">
+            <input placeholder="count"    class="trans" type="number" id="count">
+            <input placeholder="category" class="trans" type="text" id="category">
             <button id="submit">creat</button>
 
         </div>
         <div class="outputs">
             <div class="searchblock">
-                <input onkeyup="searchdata(this.value)" type="text" id="search" placeholder="search">
+                <input onkeyup="searchdata(this.value)" class="trans" type="text" id="search" placeholder="search">
                 <div class="btnsearch">
                     <button onclick="getsearchmood(this.id)" id="searchTitle">Search By Title</button>
                     <button onclick="getsearchmood(this.id)" id="searchCategory">Search By Category</button>
